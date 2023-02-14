@@ -16,6 +16,9 @@ pipeline {
 
       // CICD
       sonarqube_scanner = tool('sonarqube_scanner')
+
+      github_package = credentials('lorevangu')
+
     }
 
     stages {
