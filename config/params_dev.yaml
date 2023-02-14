@@ -1,0 +1,13 @@
+APP: rop
+UAI: 1003652988
+ENV: dev
+serviceName: socket-server
+serviceSecret: socketSecret
+scale: 2
+listenerArn: arn:aws:elasticloadbalancing:eu-west-1:435323481591:listener/app/rop/c74debe0ce70a276/8d153035cb104325
+serviceContext: socket-server
+ECRImageTag: "latest"
+UpdateParameter: "dummy"
+priority: 60
+
+#keycloakAuthServer: "keycloak-dev.np-0000050.npaeuw1.bakerhughes.com"

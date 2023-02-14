@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  APP:
+    Type: String
+  UAI:
+    Type: String
+  ENV:
+    Type: String
+  serviceName:
+    Type: String
+  serviceSecret:
+    Type: String
+  listenerArn:
+    Type: String
+  priority:
+    Type: String
+  scale:
+    Type: String
+  ECRImageTag:
+    Type: String
+    Default: "latest"
+  UpdateParameter:
+    Type: String
+  # For migration purpose
+  serviceContext:
+    Type: String
+
+
+Resources:
+  ECSServiceDeploy:
+    Type: "AWS::ServiceCatalog::CloudFormationProvisionedProduct"
+    Properties:
+     ProductName: "ECS-Service"
+     ProvisioningArtifactName: "{{resolve:ssm:/ServiceCatalog/ECS-Service/LatestVersion:1}}"
+     ProvisioningParameters:
+      - Key: "AppName"
+        Value: !Ref APP
+      - Key: "Env"
+        Value: !Ref ENV
+      - Key: "UAI"
+        Value: !Ref UAI
+      - Key: "AttachALB"
+        Value: "yes"
+      - Key: "Priority"
+        Value: !Ref priority
+      - Key: "Path"
+        Value: !Join [ '/', ['', !Ref serviceContext, '*'] ]
+      - Key: "HealthCheckPath"
+        Value: "/"
+      - Key: "HealthCheckSuccessCodes"
+        Value: "200,401"
+      - Key: "ECSCluster"
+        Value: !Ref APP
+      - Key: "DesiredCount"
+        Value: !Ref scale
+      - Key: "ContainerMemorySize"
+        Value: "256"
+      - Key: "ContainerPort"
+        Value: "8080"
+      - Key: "ECRImageTag"
+        Value: !Ref ECRImageTag
+      - Key: "ECRRepoName"
+        Value: !Ref serviceName
+      - Key: "CustomPolicy"
+        Value: "arn:aws:iam::aws:policy/AdministratorAccess"
+      - Key: "ListenerArn"
+        Value: !Ref listenerArn
+      - Key: "EnvironmentVariable1"
+        Value: !Join [ ',', ['SECRETS', !Ref serviceSecret] ]
+      - Key: "UpdateParameter"
+        Value: !Ref UpdateParameter
