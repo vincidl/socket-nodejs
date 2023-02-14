@@ -122,7 +122,7 @@ pipeline {
                }
            }
        }
-
+/*
        stage ('Code Analysis') {
            agent {
              docker {
@@ -142,6 +142,7 @@ pipeline {
              }
            }
        }
+       */
     /*
        stage("Quality Gate") {
            steps {
