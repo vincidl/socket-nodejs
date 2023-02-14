@@ -48,25 +48,6 @@ pipeline {
        }
 
 
-        /*stage ('Test') {
-           agent {
-             docker {
-               image 'docker.io/trion/ng-cli-karma:8.3.25'
-    	         args '''
-                     --volume  "$WORKSPACE":/app:rw
-                   '''
-               reuseNode true
-             }
-           }
-           steps {
-                 script {
-                   sh """
-                     npm install --production=false
-                     ng test --karma-config=./karma.conf.js --code-coverage true --watch false
-                   """
-                 }
-           }
-       }*/
       stage('Lint') {
            steps {
                script {
@@ -76,40 +57,20 @@ pipeline {
                }
            }
        }
-       stage('Building image') {
-           when { expression { ENVIRONNMENT != null }}
-           steps {
-               script {
-               /*
-                   if(env.BRANCH_NAME.equals('develop') || env.BRANCH_NAME.startsWith('feature') || env.BRANCH_NAME.equals('bhc')) {
-                     sh """
-                       sed -i "s/_BUILD_/buildDev/" Dockerfile
-                     """
-                   }
-                   if(env.BRANCH_NAME.equals('release')) {
-                     sh """
-                       sed -i "s/_BUILD_/buildQa/" Dockerfile
-                     """
-                   }
-                   if(env.BRANCH_NAME.equals('master')) {
-                     sh """
-                       sed -i "s/_BUILD_/buildProd/" Dockerfile
-                     """
-                   }
-                   */
-
-                   paramsYaml = readYaml file: "config/params_${ENVIRONNMENT}.yaml"
-    	             keycloakAuthServer = paramsYaml['keycloakAuthServer']
-
-                   sh """
-                     docker build --build-arg KEYCLOAK_AUTH_SERVER='$keycloakAuthServer' -t $registry:$service_version .
-                     docker tag $registry:$service_version $registry:latest
-                     echo $registry:latest $WORKSPACE/Dockerfile > anchore_images
-                     cat anchore_images
-                   """
-               }
-           }
-       }
+        stage('Building image') {
+            when { expression { return ENVIRONNMENT != null } }
+            steps {
+                script {
+                    sh """
+                      echo """ + github_package + """ | docker login ghcr.io -u lorevangu --password-stdin
+                      docker build -t $registry:$service_version . 
+                      docker tag $registry:$service_version $registry:latest
+                      echo $registry:latest $WORKSPACE/Dockerfile > anchore_images
+                      cat anchore_images
+                    """
+                }
+            }
+        }
 
        stage('Deploy infrastructure') {
            when { expression { ENVIRONNMENT != null }}

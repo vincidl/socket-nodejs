@@ -24,8 +24,7 @@ Parameters:
     Default: ""
   ECRImageTag:
     Type: String
-  keycloakAuthServer:
-    Type: String
+
 
   # For migration purpose
   serviceContext:
