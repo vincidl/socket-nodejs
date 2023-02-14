@@ -117,7 +117,7 @@ pipeline {
                    stack:"${service_name}-deployment-${ENVIRONNMENT}", file:'./aws/deployment.yaml',
     	             paramsFile:"./config/params_${ENVIRONNMENT}.yaml",
     	             params:['UpdateParameter': "${service_version}"],
-                   roleArn: 'arn:aws:iam::'+aws_account+':role/CICD-Cloudformation-Role', timeoutInMinutes:60, onFailure:'ROLLBACK'
+                   roleArn: 'arn:aws:iam::'+aws_account+':role/CICD-Cloudformation-Role', timeoutInMinutes:15, onFailure:'ROLLBACK'
                  )
                }
            }
@@ -142,7 +142,6 @@ pipeline {
              }
            }
        }
-       */
     /*
        stage("Quality Gate") {
            steps {
