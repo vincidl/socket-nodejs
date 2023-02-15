@@ -3,7 +3,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
 
-app.use('/healthcheck', require('./routes/healthcheck.routes'));
+app.use('/', require('./routes/healthcheck.routes'));
 
 const reportsInUse = new Map();
 
