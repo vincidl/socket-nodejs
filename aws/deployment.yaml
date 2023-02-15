@@ -47,7 +47,7 @@ Resources:
       - Key: "Path"
         Value: !Join [ '/', ['', !Ref serviceContext, '*'] ]
       - Key: "HealthCheckPath"
-        Value: "/"
+        Value: !Join [ '/', [ '', !Ref serviceContext, 'healthcheck' ] ]
       - Key: "HealthCheckSuccessCodes"
         Value: "200,401"
       - Key: "ECSCluster"
