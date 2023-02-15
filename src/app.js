@@ -55,8 +55,8 @@ io.sockets.on("connection", socket => {
 
   });
 
-  http.listen(4444, () => {
-    console.log('Listening on port 4444');
+  http.listen(8080, () => {
+    console.log('Listening on port 8080');
   });
 
   function getByValue(map, searchValue) {

@@ -57,7 +57,7 @@ Resources:
       - Key: "ContainerMemorySize"
         Value: "256"
       - Key: "ContainerPort"
-        Value: "4444"
+        Value: "8080"
       - Key: "ECRImageTag"
         Value: !Ref ECRImageTag
       - Key: "ECRRepoName"

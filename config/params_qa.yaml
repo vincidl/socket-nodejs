@@ -3,7 +3,7 @@ UAI: 1003652988
 ENV: qa
 serviceName: socket-server
 serviceSecret: socketSecret
-scale: 2
+scale: 1
 listenerArn: arn:aws:elasticloadbalancing:eu-west-1:287486719145:listener/app/rop/d60c75a1ce726664/507e138039bdc042
 serviceContext: socket-server
 ECRImageTag: "latest"
