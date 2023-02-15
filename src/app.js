@@ -1,9 +1,7 @@
 const app = require('express')();
-const http = require('http').Server(app);
+const https = require('https').Server(app);
 const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
-
-app.use('/', require('./routes/healthcheck.routes'));
 
 const reportsInUse = new Map();
 
@@ -55,7 +53,7 @@ io.sockets.on("connection", socket => {
 
   });
 
-  http.listen(8080, () => {
+  https.listen(8080, () => {
     console.log('Listening on port 8080');
   });
 
