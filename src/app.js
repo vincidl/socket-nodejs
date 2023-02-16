@@ -1,6 +1,6 @@
 const app = require('express')();
 const https = require('https').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(https);
 let ConnectedUser = require('./models/connected-user');
 
 const reportsInUse = new Map();
