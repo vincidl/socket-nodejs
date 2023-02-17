@@ -4,6 +4,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
 const fs = require("fs")
+const path = require("path");
+
 
 const reportsInUse = new Map();
 
@@ -58,7 +60,7 @@ io.sockets.on("connection", socket => {
   });
 
   const options = {
-    cert: fs.readFileSync("../cert.crt"),
+    cert: fs.readFileSync(path.resolve(__dirname, "../cert.crt"))
   };
 
   https.listen(8080, () => {
