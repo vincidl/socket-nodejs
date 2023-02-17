@@ -1,7 +1,7 @@
 const app = require('express')();
 const https = require('https').Server(app);
 const http = require('http').Server(app);
-const io = require('socket.io')(https);
+const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
 const fs = require("fs");
 const path = require("path");
@@ -63,7 +63,7 @@ io.sockets.on("connection", socket => {
     cert: fs.readFileSync(path.resolve(__dirname, "../cert.crt"))
   };*/
 
-  https.listen(8080, () => {
+  http.listen(8080, () => {
     console.log('Listening on port 8080');
   });
 
