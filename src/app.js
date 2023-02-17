@@ -1,9 +1,9 @@
 const app = require('express')();
 const https = require('https').Server(app);
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(https);
 let ConnectedUser = require('./models/connected-user');
-const fs = require("fs")
+const fs = require("fs");
 const path = require("path");
 
 
