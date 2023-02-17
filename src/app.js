@@ -59,9 +59,9 @@ io.sockets.on("connection", socket => {
 
   });
 
-  const options = {
+  /*const options = {
     cert: fs.readFileSync(path.resolve(__dirname, "../cert.crt"))
-  };
+  };*/
 
   https.listen(8080, () => {
     console.log('Listening on port 8080');
