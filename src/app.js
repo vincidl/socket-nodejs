@@ -1,9 +1,13 @@
 const app = require('express')();
 const https = require('https').Server(app);
-const io = require('socket.io')(https);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
+const fs = require("fs")
 
 const reportsInUse = new Map();
+
+app.use('/', require('./routes/healthcheck.routes'));
 
 
 
@@ -52,6 +56,10 @@ io.sockets.on("connection", socket => {
     console.log(`Socket ${socket.id} has connected`);
 
   });
+
+  const options = {
+    cert: fs.readFileSync("../cert.crt"),
+  };
 
   https.listen(8080, () => {
     console.log('Listening on port 8080');
