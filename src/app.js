@@ -72,8 +72,8 @@ io.sockets.on("connection", socket => {
     cert: fs.readFileSync(path.resolve(__dirname, "../cert.crt"))
   };*/
 
-  http.listen(80, () => {
-    console.log('Listening on port 80');
+  http.listen(8080, () => {
+    console.log('Listening on port 8080');
   });
 
   function getByValue(map, searchValue) {
