@@ -11,7 +11,16 @@ const reportsInUse = new Map();
 
 app.use('/', require('./routes/healthcheck.routes'));
 
-
+app.get('/', async (_req, res, _next) => {  
+   var fullUrl = _req.protocol + '://' + _req.get('host') + _req.originalUrl;
+   console.log("Basic " + fullUrl);
+   try {
+       res.status(200).send("True");
+   } catch (error) {
+       healthcheck.message = error;
+       res.status(503).send();
+   }
+});
 
 io.sockets.on("connection", socket => {
 
@@ -63,8 +72,8 @@ io.sockets.on("connection", socket => {
     cert: fs.readFileSync(path.resolve(__dirname, "../cert.crt"))
   };*/
 
-  http.listen(8080, () => {
-    console.log('Listening on port 8080');
+  http.listen(80, () => {
+    console.log('Listening on port 80');
   });
 
   function getByValue(map, searchValue) {
