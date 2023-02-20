@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router({});
 
 router.get('/health', async (_req, res, _next) => {
-    console.log('/healthcheck');
+   // console.log('/healthcheck');
+    var fullUrl = _req.protocol + '://' + _req.get('host') + _req.originalUrl;
+    console.log("Full url" + fullUrl);
+
     const healthcheck = {
         uptime: process.uptime(),
         responsetime: process.hrtime(),
