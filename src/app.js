@@ -1,4 +1,6 @@
 const app = require('express')();
+const keycloak = require('./config/keycloak-config.js').initKeycloak();
+app.use(keycloak.middleware());
 const https = require('https').Server(app);
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -40,8 +42,9 @@ io.sockets.on("connection", socket => {
         io.sockets.to(reqSocket).emit('response', resMsg);
     })
 
-    socket.on("userLeft", (templateId) => {
-        reportsInUse.delete(templateId);
+    socket.on("userLeft", (templateId, sso) => {
+        var key = getBySso(reportsInUse, sso); 
+        reportsInUse.delete(key);
         console.log(reportsInUse);
     })
 
@@ -79,6 +82,13 @@ io.sockets.on("connection", socket => {
   function getByValue(map, searchValue) {
     for (let [key, value] of map.entries()) {
       if (value.currentSocket === searchValue)
+        return key;
+    }
+  }
+
+  function getBySso(map, searchValue) {
+    for (let [key, value] of map.entries()) {
+      if (value.sso === searchValue)
         return key;
     }
   }
