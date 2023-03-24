@@ -4,13 +4,11 @@ var Keycloak = require('keycloak-connect');
 let _keycloak;
 
 var keycloakConfig = {
-    clientId: 'nodejs-microservice',
+    clientId: 'socket-server',
     bearerOnly: true,
-    serverUrl: 'http://localhost:8080/auth',
-    realm: 'Demo-Realm',
-    credentials: {
-        secret: '62c99f7c-da55-48fb-ae4e-a27f132546b7'
-    }
+    serverUrl: 'https://keycloak-dev.np-0000050.npaeuw1.bakerhughes.com/auth',
+    realm: 'repaironeportal',
+    realmPublicKey: 'r10c5aBINUS32uSVkNZ0PBKgMGnEq0M4'
 };
 
 function initKeycloak() {
