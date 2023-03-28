@@ -1,19 +1,17 @@
 const app = require('express')();
 const keycloak = require('./config/keycloak-config.js').initKeycloak();
-app.use(keycloak.middleware());
-const https = require('https').Server(app);
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
 const fs = require("fs");
 const path = require("path");
-
+app.use(keycloak.middleware());
 
 const reportsInUse = new Map();
 
 app.use('/', require('./routes/healthcheck.routes'));
 
-app.get('/', async (_req, res, _next) => {  
+app.get('/', keycloak.protect(), async (_req, res, _next) => {  
    var fullUrl = _req.protocol + '://' + _req.get('host') + _req.originalUrl;
    console.log("Basic " + fullUrl);
    try {

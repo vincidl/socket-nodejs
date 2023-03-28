@@ -1,0 +1,9 @@
+
+{
+    "realm" : "repaironeportal",
+    "realm-public-key" : "r10c5aBINUS32uSVkNZ0PBKgMGnEq0M4",
+    "auth-server-url" : "https://keycloak-dev.np-0000050.npaeuw1.bakerhughes.com/auth",
+    "ssl-required" : "external",
+    "resource" : "socket-server",
+    "public-client" : true
+}

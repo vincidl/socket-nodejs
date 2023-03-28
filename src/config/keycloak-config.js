@@ -19,7 +19,7 @@ function initKeycloak() {
     else {
         console.log("Initializing Keycloak...");
         var memoryStore = new session.MemoryStore();
-        _keycloak = new Keycloak({ store: memoryStore }, keycloakConfig);
+        _keycloak = new Keycloak({ store: memoryStore });
         return _keycloak;
     }
 }
