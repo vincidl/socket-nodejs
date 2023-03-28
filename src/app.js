@@ -1,6 +1,6 @@
 const app = require('express')();
-const keycloak = require('./config/keycloak-config.js').initKeycloak();
-app.use(keycloak.middleware());
+//const keycloak = require('./config/keycloak-config.js').initKeycloak();
+//app.use(keycloak.middleware());
 const https = require('https').Server(app);
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
