@@ -1,9 +1,21 @@
+
+
+
+
+
+import { Server } from 'socket.io';
+
+
 const app = require('express')();
+const http = require('http');
+const server = http.createServer(app);
+//const { Server } = require('socket.io');
+const io = new Server(server);
 //const keycloak = require('./config/keycloak-config.js').initKeycloak();
 //app.use(keycloak.middleware());
 //const https = require('https').Server(app);
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+//const http = require('http').Server(app);
+//const io = require('socket.io')(http);
 let ConnectedUser = require('./models/connected-user');
 const fs = require("fs");
 const path = require("path");
@@ -13,16 +25,14 @@ const reportsInUse = new Map();
 
 app.use('/', require('./routes/healthcheck.routes'));
 
-/*app.get('/', async (_req, res, _next) => {  
-   var fullUrl = _req.protocol + '://' + _req.get('host') + _req.originalUrl;
-   console.log("Basic " + fullUrl);
+app.get('/ciao', (req, res) => {  
    try {
-       res.status(200).send("True");
+       res.status(200).send("ciao");
    } catch (error) {
        healthcheck.message = error;
        res.status(503).send();
    }
-});*/
+});
 
 io.sockets.on("connection", socket => {
 
@@ -75,7 +85,7 @@ io.sockets.on("connection", socket => {
     cert: fs.readFileSync(path.resolve(__dirname, "../cert.crt"))
   };*/
 
-  http.listen(8080, () => {
+  server.listen(8080, () => {
     console.log('Listening on port 8080');
   });
 
