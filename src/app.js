@@ -6,7 +6,7 @@ const server = http.createServer(app);
 //const keycloak = require('./config/keycloak-config.js').initKeycloak();
 //app.use(keycloak.middleware());
 //const https = require('https').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(server);
 let ConnectedUser = require('./models/connected-user');
 const fs = require("fs");
 const path = require("path");
